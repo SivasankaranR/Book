@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Side Nav Bar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins' , sans-serif;
+    }
+    .background{
+        background-image: url(./Images/joker.jpg);
+        background-repeat: no-repeat;
+        height: 100vh;
+        width: 1366px;
+    }    
+    .wrapper .sidebar{
+        height: 100vh;
+        background-color: #222021;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0;
+        transition: all 0.5s ease-in-out;
+        color: white;
+        overflow: auto;
+        overflow-x: hidden;
+        z-index: 1;
+    }
+    .sidenavContent{
+        height: 100vh;
+        margin-left: -280px;
+        position: relative;
+    }
+    .side{
+        margin-left: 0px;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes  fadeIn{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+    .sidebar::-webkit-scrollbar{
+        width: 6px;
+    }
+    .sidebar::-webkit-scrollbar-thumb{
+        transition: 0.5s ease-in-out;
+        /* background-color: rgba(255, 223, 114, .9); */
+        background-color: rgba(255, 255, 255, .6);
+        border-radius: 15px;
+    }
+    .wrapper .sidebar:not(:hover).sidebar::-webkit-scrollbar-thumb{
+        background-color: transparent;
+    }
+    .sidebar::-webkit-scrollbar-thumb:hover{
+        background-color: rgba(255, 223, 114, 1);
+    }
+    .sidebar::-webkit-scrollbar-track{
+        background-color: transparent;
+    }
+    #myBooksText{
+        white-space: nowrap;
+    }
+    #close{
+        font-size: 23px;
+        margin: 15px 0px 0px 230px;
+        color: #B9BBB6;
+        cursor:pointer;
+    }
+    #close:hover{
+        color: white;
+    }
+    .profile{
+        text-align: center;
+    }
+    .imageBackground{
+        /* background: red; */
+        height: 130px;
+        width: 280px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+    .userimage{
+        height: 130px;
+        width: 130px;
+        border: 2px solid white;
+        border-radius: 50%;
+        transform: translateZ(0);
+        cursor: pointer;
+        backface-visibility: hidden;
+        background-image: url(./Images/joker.jpg);
+        background-position: center top;
+        background-size: cover;
+        z-index: 0;
+    }
+    .name{
+        width : 285px;
+    }
+    .profile h3{
+        height: 30px;
+    }
+    .profile p{
+        font-size: 14px;
+        height: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .sidenav li:hover{
+        transition: 0.2s ease-in;
+        background: rgba(240, 94, 22, .9); /* #510080 */
+    }
+    .sidenav li:active{
+        transition: 0.2s ease-in-out;
+        background: rgba(240, 94, 22, .4); /* rgba(81, 0, 128, 0.5) */
+    }
+    .sidenav li:hover .icon i{
+        transition: 0.1s ease-in;
+        font-size: 22px;
+    }
+
+                    /* LOGIN */
+                    
+    .sidenav .login li a{
+        backface-visibility: hidden;
+        color: white;
+    }
+    .sidenav .login li:hover .icon i{
+        font-size: 17px;
+    }
+    .sidenav .login .text{
+        margin-left: 35px;
+    }
+    .sidenav .login li:hover .text{
+        font-size: 16px;
+        color: white;
+    }
+    .sidenav .login li:hover{
+        transition: 0.2s ease-in;
+        background: rgba(19, 94, 150, 0.8);
+    }
+    .sidenav .login li:active{
+        transition: 0.2s ease-in-out;
+        background:rgba(19, 94, 150, 0.4);
+    }
+    .sidenav .login li{
+        position:absolute;
+        bottom: 0;
+        background-color: rgba(19, 94, 150, 1);
+    }
+    .sidenav .login{
+        /* display: none; */
+    }
+                    /* LOGOUT */
+                    
+    .sidenav .logout li a{
+        backface-visibility: hidden;
+        color: rgba(211, 0, 0, 1);
+    }
+    .sidenav .logout li .text, .logout .icon{
+        font-weight: 500;
+        color: red;
+    }
+    .sidenav .logout li:hover{
+        transition: 0.2s ease-in-out;
+        background: rgba(255,255,255,0.6);
+    }
+    .sidenav .logout li:active{
+        transition: 0.2s ease-in-out;
+        background:rgba(255, 255, 255, 0.3);
+        
+    }
+    .sidenav .logout{
+        position:absolute;
+        bottom: 0;
+        /* display: none; */
+    }
+    .hover-effect{
+        background: rgba(240, 94, 22, .5);
+        transition: 0.3s ease-in-out;
+    }
+    
+    .sidenav li, .logout li{
+        list-style: none;
+        height: 50px;
+        width: 260px;
+        box-sizing: border-box;
+        border-radius: 15px;
+        border-bottom: 1px solid rgb(0, 0, 0,0.5);
+    }
+    .sidenav li a, .logout li a{
+        list-style: none;
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .contents{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 290px;
+    }
+    .olContents{
+        width: 270px;
+    }
+    .book, .orders{
+        transition: 0.5s ease-in-out;
+        height: 50px;
+        width: 280px;
+        cursor: pointer;
+    }
+    .bookList, .ordersList{
+        transition: 0.5s ease-in-out;
+        width: 220px;
+        margin-left: 20px;
+        height: 0px;
+        overflow: hidden;
+        border-right: 1px solid black;
+        box-sizing: border-box;
+    }
+    .booklisthover-effect{
+        display: block;
+        height: 60px;
+        color: black;
+    }
+    .orderslisthover-effect{
+        display: block;
+        height: 150px;
+        color: black;
+    }
+    .bookList a, .ordersList a{
+        color: black;
+        text-decoration: none;
+        font-size: 15px;
+        padding-left: 30px;
+    }
+    .listText{
+        padding-left: 15px;
+        font-size: 14px;
+    }
+    .drops{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 30px;
+        width: 270px;
+    }
+    .bookList .list1, .ordersList .list1{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        height: 30px;
+        width: 234px;
+        transition: 0.1s ease;
+        background-color: #ffffff;
+        color: black;
+    }
+    .sidenav .book .bookList .list1:hover, .sidenav .orders .ordersList .list1:hover{
+        color: #C21807;
+        background-color: white;
+        font-weight: 600;
+        border-left: 8px solid #C21807;
+    } 
+    .list1 .fa-angle-right, .fa-angles-right{
+        font-size: 12px;
+    }
+    #arrowDropDown, #arrowDropDown1{
+        font-size: 20px;
+        transition: transform 0.5s ease;
+    }
+    .rotated{
+        transform: rotate(180deg);
+    }
+    .icon{
+        height: 50px;
+        width: 230px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        z-index: 0;
+    }
+    .icon i{
+        font-size: 17px;
+        font-weight: 400;
+    }
+    .text{
+        font-size: 15px;
+        font-weight: 400;
+        transition: font-size 0.3s ease-in-out;
+        padding: 1px 0px 1px 0px;
+    }
+    #menu{
+        /* margin: 10px; */
+        display: flex;
+        justify-content: center;
+        color: white;
+        align-items: center;
+        font-size: 25px;
+        cursor: pointer;
+        transition: 0.5s ease-in-out;
+        transform: translateZ(0);
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        /* background-color: red; */
+        z-index: 1;
+    }
+    #menu:hover{
+        background-color: rgba(255,255,255,0.1);
+    }
+    .menu{
+        height: 100vh;
+        width: 100%;
+        /* background-color: red; */
+        position: relative;
+    }
+    
+    #closeSideNav{
+        transition: 0.6s ease-in-out;
+        position: relative;
+        /* left: 280px; */
+        height: 100vh;
+        width: 1366px;
+        background-color: rgba(0,0,0,1);
+        opacity: 0;
+        z-index: 0;
+    }
+</style>
+<body>
+    <div class="background">
+        <div class="menu" >
+            <span id="menu" title="Open Menu" class="fa-solid fa-bars" onclick="openNav()"></span>
+            <div id="closeSideNav" onclick="closeNav()"></div>
+        </div class="menu">
+<div class="wrapper">
+    <div class="sidebar" id="sideBar">
+        <div class="sidenav sidenavContent" id="sidenav">
+            <span id="close" onmouseover="showTooTip(this)" class="material-symbols-outlined" onclick="closeNav()">close</span>
+            <div class="profile">
+                <div class="imageBackground"><div id="userImage" class="userimage" title="Profile Image"></div></div>
+                <div class="name"><h3 onmouseover="showTooTip(this)">Name</h3>
+                <p onmouseover="showTooTip(this)">Tag</p>
+                </div class="name">
+            </div class="profile">
+            <ol class="contents">
+                <div class="olContents">
+            <li>
+                <a href="" title="Home">
+                    <span class="icon"><i class="material-symbols-outlined">Home</i>
+                        <div class="drops"><div class="text" >Home</div></div>
+                </span>
+                </a>
+            </li>
+            <div class="book" id="book">
+            <li class="bookHover">
+                <a title="Book  Catalog">
+                    <span class="icon"><i class="material-symbols-outlined">Book_3</i>
+                        <div class="drops"><div class="text" id="myBooksText">Book  Catalog</div>
+                        <i id="arrowDropDown" class="material-symbols-outlined">arrow_drop_down</i></div>
+                </span>
+                </a>
+                <div class="bookList lists" id="bookList">
+                    <a href=""  class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Free-PDFs</p></a>
+                    <a href=""  class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Book store</p></a>
+                </div class="bookList">
+            </li>
+            </div class="book">
+            <li>
+                <a href="" title="Blogs">
+                    <span class="icon"><i class="material-symbols-outlined">newspaper</i>
+                        <div class="drops"><div class="text">Blogs</div></div>
+                </span>
+                </a>
+            </li>
+            <div class="orders" id="orders">
+            <li class="ordersHover">
+                <a title="Orders">
+                    <span class="icon"><i class="material-symbols-outlined">Orders</i>
+                    <div class="drops"><div class="text">Orders</div><i id="arrowDropDown1" class="material-symbols-outlined">arrow_drop_down</i></div>
+                </span>
+                </a>
+                <div class="ordersList lists" id="ordersList">
+                    <a href="" class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">All Orders</p></a>
+                    <a href="" class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Pending Orders</p></a>
+                    <a href="" class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Processing Orders</p></a>
+                    <a href="" class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Completed Orders</p></a>
+                    <a href="" class="list1" onmouseover="changeIcon(this),showTooTip(this)" onmouseout="restoreIcon(this)"><i class="fa-solid fa-angle-right listicon"></i><p class="listText">Declined Orders</p></a>
+                </div class="ordersList">
+            </li>
+            </div class="orders">
+            <li>
+                <a href="" title="Downloads">
+                    <span class="icon"><i class="material-symbols-outlined">Download</i>
+                        <div class="drops"><div class="text">Downloads</div></div>
+                </span>
+                </a>
+            </li>
+            <li>
+                <a href="" title="Settings">
+                    <span class="icon"><i class="material-symbols-outlined">Settings</i>
+                        <div class="drops"><div class="text">Settings</div></div>
+                </span>
+                </a>
+            </li>      
+        <div class="logout" title="Logout">
+            <li>
+                <a href="">
+                    <span class="icon"><i class="material-symbols-outlined">logout</i>
+                        <div class="drops"><div class="text">Logout</div></div>
+                </span>
+                </a>
+            </li>
+        </div class="logout">
+        <div class="login" title="Login">
+            <li>
+                <a href="">
+                    <span class="icon"><i class="material-symbols-outlined">login</i>
+                        <div class="drops"><div class="text">Login</div></div>
+                </span>
+                </a>
+            </li>
+        </div class="login">
+        </div class="olContents">
+        </ol>
+        
+    </div class="sidenav">
+    </div class="sidebar">
+        
+</div class="wrapper">
+</div class="background">
+    <script>
+            var menu = document.getElementById("menu");
+            var sideBar =  document.getElementById("sideBar");
+            var sidenav = document.getElementById("sidenav");
+            var sidenavHeight = document.getElementById("sidenavHeight");
+            var closeSidenav = document.getElementById("closeSideNav");
+            var book = document.querySelector(".book");
+            var bookList = document.getElementById("bookList");
+            var bookHover = document.querySelector(".bookHover");
+            var orders = document.querySelector(".orders");
+            var ordersList = document.getElementById("ordersList");
+            var ordersHover = document.querySelector(".ordersHover");
+            var listDropDown = document.getElementById("arrowDropDown");
+            var listDropDown1 = document.getElementById("arrowDropDown1");
+
+                                /* FUNCTIONS */
+
+        function addClasses(element, ...classes){
+            classes.forEach(className => element.classList.add(className));
+            return element;
+        }
+        function removeClasses(element, ...classes){
+            classes.forEach(className => element.classList.remove(className));
+            return element;
+        }
+        function removeClassesFromAll(className){
+            var elements = document.getElementsByClassName(className);
+            for(var i = 0 ; i < elements.length ; i++){
+                elements[i].classList.remove(className);
+            }
+        }
+        function openNav(){
+            sideBar.style.width="280px";
+            menu.style.marginLeft = "290px";
+            menu.className = "fa-solid fa-bars-staggered"
+            closeSidenav.style.opacity = "0.6"
+            sidenav.style.transition = "all 0.9s ease-in-out" 
+            addClasses(sidenav,'side');
+        }
+        function closeNav(){
+            sideBar.style.width="0px";
+            menu.style.marginLeft = "0px";
+            closeSidenav.style.opacity = "0";
+            sidenav.style.transition = "all 0.5s ease-in-out" 
+            bookList.classList.remove("booklisthover-effect")
+            bookHover.classList.remove("hover-effect");
+            ordersHover.classList.remove("hover-effect");
+            ordersList.classList.remove("orderslisthover-effect")
+            sidenav.style.height = "100vh" 
+            if(book.style.height == "110px"){
+                listDropDown.classList.toggle("rotated");
+                book.style.height = "50px";}
+            if(orders.style.height == "200px"){
+                listDropDown1.classList.toggle("rotated");
+                orders.style.height = "50px";}
+            menu.className = "fa-solid fa-bars"
+            removeClasses(sidenav,'side')
+        }
+
+        book.addEventListener('click',function(){
+            sidenav.style.transition = "0.5s ease-in-out"    
+            if(book.style.height == "110px"){
+                if(sidenav.style.height == "135vh"){sidenav.style.height = "125vh";}else{sidenav.style.height = "100vh"}
+                bookList.classList.remove("booklisthover-effect")
+                book.style.height = "50px";
+                bookHover.classList.remove("hover-effect");
+                listDropDown.classList.toggle("rotated");   
+            }else{
+                if(sidenav.style.height == "125vh"){sidenav.style.height = "135vh"}else{sidenav.style.height = "110vh"}
+                bookList.classList.add("booklisthover-effect")
+                book.style.height = "110px";
+                bookHover.classList.add("hover-effect");
+                listDropDown.classList.toggle("rotated");
+            }
+        })
+
+        orders.addEventListener('click',function(){
+            sidenav.style.transition = "0.5s ease-in-out"
+            if(orders.style.height == "200px"){
+                ordersList.classList.remove("orderslisthover-effect")
+                orders.style.height = "50px";
+                ordersHover.classList.remove("hover-effect");
+                listDropDown1.classList.toggle("rotated");
+                if(sidenav.style.height == "125vh"){sidenav.style.height = "100vh"}
+                else{sidenav.style.height = "110vh"}
+            }else{
+                ordersList.classList.add("orderslisthover-effect")
+                if(sidenav.style.height == "110vh"){sidenav.style.height = "135vh"}
+                else{sidenav.style.height = "125vh"}
+                orders.style.height = "200px";
+                ordersHover.classList.add("hover-effect");
+                listDropDown1.classList.toggle("rotated");
+            }})
+            function changeIcon(element){
+                var icon = element.querySelector('i');
+                icon.classList.remove('fa-angle-right');
+                icon.classList.add('fa-angles-right');
+            }
+            function restoreIcon(element){
+                var icon = element.querySelector('i');
+                icon.classList.remove('fa-angles-right');
+                icon.classList.add('fa-angle-right');
+            }
+            function showTooTip(element){
+                var tooltip = element.textContent;
+                element.title = tooltip
+            }
+    </script>
+
+
+
+</body>
+</html>
